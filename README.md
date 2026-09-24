@@ -8,11 +8,15 @@ A digital resource hub built for novice and student teachers at Penn State Abing
 
 ## Overview
 
-The hub is organized into three main pages:
+The hub is organized into six main pages:
 
 - **Landing page** — introduces the site and how to use it
 - **Resource archive** — browsable/searchable library of literacy instruction resources, each with a summary and a link to the original source
 - **Chatbot** — gated behind access-code authentication; teachers can ask instructional questions (e.g. how to teach a specific technique to ESL students of a given language) and the AI responds using only resources stored in the hub
+- **Terms & Conditions/Privacy Statement** — brief page for the Terms and Conditions and Privacy Statement
+- **About us page** — mission statement, the vision behind the site, the founders and our team, etc
+- **FAQ page** — Frequently Asked Questions
+
 
 ## Structure
 
