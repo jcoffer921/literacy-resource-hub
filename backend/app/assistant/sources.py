@@ -31,6 +31,8 @@ def _excerpt(text: str, length: int = EXCERPT_LENGTH) -> str:
     text = text.strip()
     if len(text) <= length:
         return text
+    # Cut on the nearest word boundary rather than mid-word; fall back to a
+    # hard cut if there's no space before `length` (e.g. one very long word).
     cut = text.rfind(" ", 0, length)
     if cut <= 0:
         cut = length

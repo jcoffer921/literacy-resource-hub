@@ -6,7 +6,7 @@ import logging
 import re
 from enum import Enum
 
-from app.assistant.config import settings
+from app.assistant.config import settings, validate_settings
 from app.assistant.schemas import SourceChunk
 
 logger = logging.getLogger(__name__)
@@ -29,11 +29,9 @@ NO_MATCH_MESSAGE = (
 
 
 def classify_coverage(chunks: list[SourceChunk]) -> Coverage:
-    if settings.STRONG_MATCH_THRESHOLD is None or settings.MIN_MATCH_THRESHOLD is None:
-        raise RuntimeError(
-            "STRONG_MATCH_THRESHOLD and MIN_MATCH_THRESHOLD must be configured "
-            "before coverage can be classified."
-        )
+    # Startup validation (main.py) should catch this first; this is a defense-in-depth
+    # check for any code path that calls classify_coverage without going through startup.
+    validate_settings(settings)
     if not chunks:
         return Coverage.NONE
     top = max(chunk.score for chunk in chunks)
@@ -64,6 +62,9 @@ def validate_citations(answer: str, label_map: dict[str, SourceChunk]) -> tuple[
         return ""
 
     cleaned = CITATION_RE.sub(_replace, answer)
+    # Stripping a citation can leave a stray space before punctuation (e.g. "text .")
+    # or a run of spaces where the citation used to sit; clean up both.
+    cleaned = re.sub(r"\s+([.,!?;:])", r"\1", cleaned)
     cleaned = re.sub(r" {2,}", " ", cleaned).strip()
 
     if invalid:

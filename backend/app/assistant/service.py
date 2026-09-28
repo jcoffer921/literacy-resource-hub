@@ -39,6 +39,9 @@ def answer_question(question: str, chunks: list[SourceChunk], llm_call: LLMCall)
 
     cited_labels = extract_citations(raw_answer)
     cleaned_answer, _invalid = validate_citations(raw_answer, label_map)
+    # Re-filter against label_map: validate_citations already strips invalid
+    # [Sx] tags from the answer text, but cited_labels was extracted before
+    # that pass and needs the same filtering applied to it.
     cited_labels = [label for label in cited_labels if label in label_map]
 
     sources = build_cited_sources(cited_labels, label_map)

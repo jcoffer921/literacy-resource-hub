@@ -4,6 +4,9 @@ __pycache__/
 venv/
 .env
 
+# local agent instructions, not shared with the team
+CLAUDE.md
+
 # frontend
 node_modules/
 .next/

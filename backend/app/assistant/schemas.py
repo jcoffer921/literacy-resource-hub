@@ -24,6 +24,9 @@ class SourceChunk(BaseModel):
 
     @property
     def location(self) -> str:
+        # Prefer page numbers when available; a single-page chunk gets "p. N"
+        # while a multi-page chunk gets the "pp. N–M" range form. Chunks with
+        # no page data (see TODO above) fall back to their section heading.
         if self.page_start is not None:
             if self.page_end is None or self.page_end == self.page_start:
                 return f"p. {self.page_start}"
