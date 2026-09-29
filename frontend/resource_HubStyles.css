@@ -39,10 +39,7 @@ body {
 }
 
 
-/*control the penn state logo size in the navbar
-the old logo png had a ton of blank space baked into the file so it looked
-tiny even at a "big" height, cropped the image down to just the shield and
-bumped this up so it actually reads next to the title now*/
+/*make the penn state logo bigger so it does not look tiny next to the title*/
 .penn-state-logo {
     height: 62px;
     width: auto;
